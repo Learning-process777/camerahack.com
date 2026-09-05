@@ -9,10 +9,32 @@
       color: limegreen;
       font-family: monospace;
       text-align: center;
-      padding-top: 100px;
+      padding-top: 50px;
     }
     #loading {
       font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #dots {
+      margin-bottom: 20px;
+    }
+    #camera-box {
+      width: 400px;
+      height: 250px;
+      background-color: #111;
+      border: 2px solid limegreen;
+      margin: 0 auto 20px auto;
+      display: none;
+      animation: flicker 0.2s infinite alternate;
+    }
+    @keyframes flicker {
+      from { background-color: #111; }
+      to { background-color: #333; }
+    }
+    #access {
+      display: none;
+      color: lime;
+      font-size: 22px;
       margin-bottom: 20px;
     }
     #message {
@@ -25,24 +47,51 @@
 <body>
   <div id="loading">Accessing camera feed...</div>
   <div id="dots"></div>
-  <div id="message">GOTCHA! Your camera is hacked by biyog shamsher rawal!</div>
+  <div id="camera-box"></div>
+  <div id="access">Access Granted ✔️</div>
+  <div id="message"></div>
+
+  <audio id="beep" src="https://www.soundjay.com/button/beep-07.wav"></audio>
 
   <script>
     let dots = document.getElementById("dots");
     let loading = document.getElementById("loading");
+    let cameraBox = document.getElementById("camera-box");
+    let access = document.getElementById("access");
     let message = document.getElementById("message");
+    let beep = document.getElementById("beep");
 
     let count = 0;
     let interval = setInterval(() => {
       dots.textContent += ".";
       count++;
+
+      if (count === 6) {
+        cameraBox.style.display = "block"; // show fake camera box
+      }
+      if (count === 8) {
+        access.style.display = "block"; // show Access Granted
+      }
       if (count > 10) {
         clearInterval(interval);
         loading.style.display = "none";
         dots.style.display = "none";
+        cameraBox.style.display = "none";
+        access.style.display = "none";
+        beep.play();
         message.style.display = "block";
+        typeWriter("your camera is under control, for to take under control your camera , say sorry to your boyfriend", message);
       }
     }, 500);
+
+    function typeWriter(text, element) {
+      let i = 0;
+      let interval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 100);
+    }
   </script>
 </body>
 </html>
