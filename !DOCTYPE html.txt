@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Camera Hack </title>
+  <style>
+    body {
+      background-color: black;
+      color: limegreen;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 100px;
+    }
+    #loading {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #message {
+      font-size: 28px;
+      display: none;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Accessing camera feed...</div>
+  <div id="dots"></div>
+  <div id="message">GOTCHA! Your camera is hacked by biyog shamsher rawal!</div>
+
+  <script>
+    let dots = document.getElementById("dots");
+    let loading = document.getElementById("loading");
+    let message = document.getElementById("message");
+
+    let count = 0;
+    let interval = setInterval(() => {
+      dots.textContent += ".";
+      count++;
+      if (count > 10) {
+        clearInterval(interval);
+        loading.style.display = "none";
+        dots.style.display = "none";
+        message.style.display = "block";
+      }
+    }, 500);
+  </script>
+</body>
+</html>
